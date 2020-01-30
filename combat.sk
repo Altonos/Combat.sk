@@ -1,0 +1,17 @@
+on load:
+	register new shapeless recipe for snowball named "&4Verzweiflungsschlag" using snowball, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block
+	stop
+
+on projectile hit:
+	if shooter's target is a player:
+		set {_victim} to shooter's target		
+		if shooter has snowball with name "&4Verzweiflungsschlag":			
+			remove snowball with name "&4Verzweiflungsschlag" from shooter's inventory
+			push shooter, {_victim} upwards with force 5
+			stop
+		stop
+
+	stop
+stop
+		
+
