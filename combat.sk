@@ -7,11 +7,22 @@ on projectile hit:
 		set {_victim} to shooter's target		
 		if shooter has snowball with name "&4Verzweiflungsschlag":			
 			remove snowball with name "&4Verzweiflungsschlag" from shooter's inventory
-			push shooter, {_victim} upwards with force 5
+			push {_victim} upwards with force 5
+			push shooter upwards with force 5
 			stop
 		stop
 
 	stop
-stop
+
 		
 
+on damage:
+	set {_damage} to damage
+	if victim is a player:
+		chance of 10%:
+			bind hologram "&4Geblockt" to victim for 0.75 seconds offset by -1.75, 1.5, 1
+			add {_damage} to victim's health
+			stop
+		bind hologram "&4-%{_damage}%HP" to victim for 0.75 seconds offset by 1.55, 1.5, 1
+		stop
+	stop
