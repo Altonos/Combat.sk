@@ -1,6 +1,24 @@
-on load:
-	register new shapeless recipe for snowball named "&4Verzweiflungsschlag" using snowball, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block
+on right click with blaze rod:
+	player's tool is blaze rod with name "&4Blitzschlag"
+	remove blaze rod with name "&4Blitzschlag" from player's inventory
+
+	strike lightning at target block of player
+	set block above target block to fire
+
+on right click with Firework star:
+	player's tool is Firework star with name "&4Pfeilregen"
+	remove Firework star with name "&4Pfeilregen" from player's inventory
+	shoot arrow from player at speed 0.7 north 
+	shoot arrow from player at speed 0.7 northwest 
+	shoot arrow from player at speed 0.7 east 
+	shoot arrow from player at speed 0.7 southwest 
+	shoot arrow from player at speed 0.7 west 
+	shoot arrow from player at speed 0.7 south
 	stop
+		
+
+
+
 
 on projectile hit:
 	if shooter's target is a player:
@@ -10,19 +28,74 @@ on projectile hit:
 			push {_victim} upwards with force 5
 			push shooter upwards with force 5
 			stop
+
+	if projectile is a arrow:	
+		wait 5 ticks
+		delete projectile
 		stop
-
 	stop
-
 		
 
 on damage:
 	set {_damage} to damage
-	if victim is a player:
-		chance of 10%:
-			bind hologram "&4Geblockt" to victim for 0.75 seconds offset by -1.75, 1.5, 1
-			add {_damage} to victim's health
-			stop
-		bind hologram "&4-%{_damage}%HP" to victim for 0.75 seconds offset by 1.55, 1.5, 1
+	chance of 8%:
+		bind hologram "&4Geblockt" to victim for 0.75 seconds offset by -1.75, 1.5, 1
+		wait 1 tick
+		add {_damage} to victim's health
 		stop
+
+	bind hologram "&4-%{_damage}%HP" to victim for 0.75 seconds offset by 1.55, 1.5, 1
 	stop
+
+
+
+
+on damage:
+	if attacker is a player:
+		if display name of victim is "&4Boss Zombie":
+
+			chance of 10%:				
+
+				shoot arrow from victim at speed 0.7 north 
+				shoot arrow from victim at speed 0.7 northwest 
+				shoot arrow from victim at speed 0.7 east 
+				shoot arrow from victim at speed 0.7 southwest 
+				shoot arrow from victim at speed 0.7 west 
+				shoot arrow from victim at speed 0.7 south
+				stop
+
+
+			chance of 15%:
+				loop blocks in radius 2 around victim:
+					loop-block is air
+					add loop-block to {_blocks::*}
+					while size of {_blocks::*} > 0:
+						wait 10 ticks
+						set {_block} to random element out of {_blocks::*}
+						add {_block} to {block::spawn::*}
+						remove {_block} from {_blocks::*}
+						chance of 20%:
+							spawn a zombie at {_block}
+					stop	
+
+		if display name of victim is "&4Boss skeleton":
+			chance of 8%:
+				set {_location} to attacker's location
+				set block at {_location}  to cobweb
+				wait 100 ticks
+				set {_location}  to air
+				stop
+
+			chance of 5%:
+				push attacker upwards with force 1
+				push attacker in direction of victim with force 1
+
+				
+
+
+
+on death of zombie:
+	if display name of zombie is "&4Boss Zombie":
+		add Firework star named "&4Pfeilregen" to attacker's inventory
+		
+	

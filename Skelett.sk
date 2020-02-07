@@ -1,0 +1,15 @@
+on spawn of a skeleton:
+	chance of 2%:
+		set name of the skeleton to "&4Boss skeleton"
+		apply speed 3 to skeleton for 60 minutes
+		apply health boost 0.1 to skeleton for 60 minutes
+		set the maximum health of skeleton to 24
+		heal the skeleton
+		set tool of skeleton to Bow of flame
+		set Helmet of skeleton to diamond Helmet
+		set chestplate of skeleton to diamond chestplate
+		set Leggings of skeleton to diamond Leggings
+		set boots of skeleton to diamond boots
+		stop
+
+	
