@@ -1,0 +1,18 @@
+on load:
+	register new shapeless recipe for snowball named "&4Verzweiflungsschlag" using snowball, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block
+	register new shapeless recipe for blaze rod named "&4Blitzschlag" using blaze rod, fire charge, air, air, air, air, air, air, air
+	register new shapeless recipe for Feather named "&4Feiges Huhn" using Feather, iron block, iron block, iron block, iron block, iron block, iron block, iron block, iron block
+	
+
+	#sword
+	register new shapeless recipe for diamond sword named "&4Assassin schwert lvl ||||" with lore "-Lebensraub 10 o/o " using diamond sword, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block
+	register new shapeless recipe for iron sword named "&4Assassin schwert lvl |||" with lore "-Lebensraub 8 o/o " using iron sword, diamond block, diamond block, diamond block, diamond block, air, air, air, air
+	register new shapeless recipe for stone sword named "&4Assassin schwert lvl |||" with lore "-Lebensraub 6 o/o " using stone sword, diamond block, diamond block, air, air, air, air, air, air
+	register new shapeless recipe for wooden sword named "&4Assassin schwert lvl |" with lore "-Lebensraub 4 o/o " using wooden sword, diamond block, air, air, air, air, air, air, air
+	
+	#Food
+
+	stop
+
+
+
