@@ -33,6 +33,7 @@ on right click with Feather:
 
 
 on projectile hit:
+
 	if shooter's target is a player:
 		set {_victim} to shooter's target		
 		if shooter has snowball with name "&4Verzweiflungsschlag":			
@@ -46,12 +47,21 @@ on projectile hit:
 		delete projectile
 		stop
 	stop
-		
+	
+on damage:
+	set {_facing} to facing of attacker
+	set {_v.facing} to facing of Victim
+	if {_facing} is {_v.facing}:
+		increase the damage by 2
+
+
 
 on damage:
 	set {_damage} to damage
+	 
 	chance of 8%:
 		cancel event
+		wait 1 tick
 		bind hologram "&4Geblockt" to victim for 0.75 seconds offset by -1.75, 1.5, 1
 		stop
 
@@ -156,31 +166,31 @@ on death of zombie:
 
 command /Kit:
 	trigger:
-		if {kit-1::%player%} <= 100:
+		#if {kit-1::%player%} = 0:
 
-			add Iron sword to player's inventory
-			wait 10 ticks
-			add 32 bread to player's inventory
-			wait 10 ticks
-			add stone pickaxe to player's inventory
-			wait 10 ticks
-			add stone axe to player's inventory
-			wait 10 ticks
-			add stone shovel to player's inventory
-			wait 10 ticks
-			add leather cap to player's inventory
-			wait 10 ticks
-			add leather Tunic to player's inventory
-			wait 10 ticks
-			add leather pants to player's inventory
-			wait 10 ticks
-			add leather boots to player's inventory
-			set {kit-1::%player%} to 30 
-			stop
+		add Iron sword to player's inventory
+		wait 10 ticks
+		add 32 bread to player's inventory
+		wait 10 ticks
+		add stone pickaxe to player's inventory
+		wait 10 ticks
+		add stone axe to player's inventory
+		wait 10 ticks
+		add stone shovel to player's inventory
+		wait 10 ticks
+		add leather cap to player's inventory
+		wait 10 ticks
+		add leather Tunic to player's inventory
+		wait 10 ticks
+		add leather pants to player's inventory
+		wait 10 ticks
+		add leather boots to player's inventory
+		set {kit-1::%player%} to 30 
+		stop
 
-		else:
-			send "[&6Kit&f]&6Bitte warte noch %{kit-1::%player%}%Min"
-			stop
+		#else:
+		#	send "[&6Kit&f]&6Bitte warte noch %{kit-1::%player%}%Min"
+			#stop
 	
 
 
@@ -188,5 +198,8 @@ every 1 minute:
 	loop all players:
 		if {kit-1%loop-player%} = 0:
 			stop
-		remove 1 from {kit-1%loop-player%}
-		stop
+
+		else:
+			#broadcast "test"
+			add -1 to {kit-1%loop-player%}
+			stop

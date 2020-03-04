@@ -1,4 +1,9 @@
 on load:
+	wait 5 ticks
+	set {kit-1::*} to 0
+
+
+
 	register new shapeless recipe for snowball named "&4Verzweiflungsschlag" using snowball, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block, diamond block
 	register new shapeless recipe for blaze rod named "&4Blitzschlag" using blaze rod, fire charge, air, air, air, air, air, air, air
 	register new shapeless recipe for Feather named "&4Feiges Huhn" using Feather, iron block, iron block, iron block, iron block, iron block, iron block, iron block, iron block

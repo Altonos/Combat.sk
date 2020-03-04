@@ -1,0 +1,174 @@
+
+On join:
+	if {nextlevel::%player%} is not set:
+		set {nextlevel::%player%} to 10
+		set player's max health to 0.5
+		set {level::%player%} to 0
+
+on load:
+	delete {xp::*}
+	delete {nextlevel::*}
+	delete {level::*}
+
+
+
+
+
+#! Xp liste
+
+On block break:
+	#broadcast "%event-block%"
+
+#! Grass
+	if event-block is short grass:
+		XP(0.01, player)
+
+	if event-block is Grass block:
+		XP(0.5, player)
+
+	if event-block is Dirt:
+		XP(0.5, player)
+
+#! Wood
+
+	if event-block is any log:
+		XP(2, player)
+
+	if event-block is any leaf:
+		XP(0.1, player)
+
+
+#! Stone
+
+	if event-block is stone:
+		XP(1, player)
+
+	if event-block is gravel block:
+		XP(1, player)
+
+	if event-block is raw granite:
+		XP(1, player)
+
+	if event-block is raw diorite:
+		XP(1, player)
+
+	if event-block is raw andesite:
+		XP(1, player)
+
+	if event-block is sand block:
+		XP(0.2, player)
+
+#! Ore
+
+	if event-block is coal ore:
+		XP(2, player)
+
+	if event-block is iron ore:
+		XP(3, player)
+
+	if event-block is Gold ore:
+		XP(4, player)
+
+	if event-block is redstone ore:
+		XP(2, player)
+
+	if event-block is lapis lazuli ore:
+		XP(1, player)
+
+	if event-block is diamond ore:
+		XP(15, player)
+
+#! Food
+
+	if event-block is ripe carrot plant:
+		XP(4, player)
+
+	if event-block is ripe potato plant:
+		XP(4, player)
+
+	if event-block is ripe wheat plant:
+		XP(4, player)
+
+	if event-block is ripe beetroot plant:
+		XP(4, player)
+
+	XP(0.5, player)
+	stop
+
+
+
+
+
+
+#!Level Berechnung
+
+function XP(xp: number, p: player):
+	add {_xp} to {xp::%{_p}%}
+	#broadcast "%{_xp}%"
+	#broadcast "&4%{nextlevel::%{_p}%}%"
+	if {xp::%{_p}%} > {nextlevel::%{_p}%}:
+		remove {nextlevel::%{_p}%} from {xp::%{_p}%}
+		add 1 to {level::%{_p}%}
+		set {nextlevel::%{_p}%} to {nextlevel::%{_p}%} *1.2
+
+
+		#Leben für Spieler
+		send "&7[&6Level&7]&6Du bist jetzt Level %{level::%{_p}%}%" to {_p}
+		if {level::%{_p}%} = 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190 or 200:
+			set {_number} to {level::%{_p}%}
+			set {_number} to {_number} / 10
+			#set {_number} to {_number} +1
+			#broadcast "%{_number}%"
+			set {_p}'s max health to {_number}
+			#set player's health to {_number}
+
+
+
+
+#! action bar
+
+every 1 second:
+	loop all players:
+		if {showxp::%loop-player%} is true:
+			set action bar of loop-player to "&6XP %{xp::%loop-player%}%/%{nextlevel::%loop-player%}% lvl:%{level::%loop-player%}%"
+
+
+
+#! Level remove beim Sterben
+
+on death:
+	if {level::%player%} < 10:
+		remove 1 from {level::%player%}
+		set {nextlevel::%player%} to {nextlevel::%Player%} /1.2
+		send "&7[&6Level&7]&6 Du hast 1 Level verloren"
+		stop
+
+	remove 2 from {level::%player%}
+	set {nextlevel::%player%} to {nextlevel::%Player%} /1.2
+	wait 1 tick
+	set {nextlevel::%player%} to {nextlevel::%Player%} /1.2
+	send "&7[&6Level&7]&6 Du hast 2 Level verloren"
+	stop
+
+
+#! commands
+
+command /showxp:
+	trigger:
+		if {showxp::%player%} is false:
+			set {showxp::%player%} to true
+			stop
+
+		if {showxp::%player%} is true:
+			set {showxp::%player%} to false
+			stop
+		
+		set {showxp::%player%} to true
+		stop 
+
+
+
+command /level:
+	trigger:
+		Send "&7[&6Level&7]&6 Du bist Level %{level::%player%}%"
+		stop
